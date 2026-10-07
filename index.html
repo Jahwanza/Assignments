@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Biostatistics Homework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F5F8FD; --card:#FFFFFF; --ink:#1B2A4A; --muted:#5A6786; --line:#D7E0F0;
+  --margin:#D6455D; --hi:#FFE45E; --hi-ink:#1B2A4A; --code:#EEF3FB; --out:#F8FAFD;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="light"]){--paper:#272828;--card:#1C2540;--ink:#000000;--muted:#9AA8C7;--line:#2B3659;--margin:#FF7088;--code:#121A30;--out:#18213B}
+}
+:root[data-theme="light"]{--paper:#272828;--card:#1C2540;--ink:#000000;--muted:#9AA8C7;--line:#2B3659;--margin:#FF7088;--code:#121A30;--out:#18213B}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 "Work Sans",system-ui,sans-serif;
+  background-image:repeating-linear-gradient(transparent 0 31px,var(--line) 31px 32px)}
+.wrap{max-width:860px;margin:0 auto;padding:48px 20px 72px 28px;position:relative}
+.wrap::before{content:"";position:absolute;left:12px;top:0;bottom:0;width:2px;background:var(--margin);opacity:.7}
+h1{font:400 clamp(44px,9vw,76px)/1 "Caveat Brush",cursive;margin:0 0 12px}
+h1 span{background:linear-gradient(transparent 55%,var(--hi) 55% 92%,transparent 92%);padding:0 6px;color:var(--hi-ink)}
+.intro{max-width:56ch;color:var(--muted);margin:0 0 32px;background:var(--paper);display:inline-block;padding:2px 6px 2px 0}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+button{font:500 15px "Work Sans",sans-serif;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:6px 16px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--hi);color:var(--hi-ink);border-color:var(--hi);font-weight:600}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--margin);outline-offset:2px}
+.list{display:grid;gap:16px}
+details{background:var(--card);border:1.5px solid var(--line);border-radius:10px;overflow:hidden}
+summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;gap:16px;align-items:baseline}
+summary::-webkit-details-marker{display:none}
+summary h2{font:400 28px/1.15 "Caveat Brush",cursive;margin:0}
+.tag{font-size:14px;color:var(--muted)}
+summary::after{content:"+";font-size:24px;line-height:1;color:var(--margin);margin-left:auto}
+details[open] summary::after{content:"\2212"}
+.body{padding:0 20px 20px;border-top:1.5px dashed var(--line)}
+.tabs{display:flex;gap:8px;margin:16px 0}
+.doc h1,.doc h2,.doc h3{font-family:"Work Sans",sans-serif;font-weight:600;line-height:1.25;margin:20px 0 6px;background:none;padding:0}
+.doc h1{font-size:22px}.doc h2{font-size:19px}.doc h3{font-size:17px}
+.doc p{margin:8px 0;max-width:66ch}.doc ul{margin:8px 0;padding-left:22px}
+.doc code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9em;background:var(--code);padding:1px 5px;border-radius:4px}
+pre{font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;margin:10px 0 0;padding:12px 14px;overflow-x:auto;background:var(--code);border-radius:8px 8px 0 0;border-left:4px solid var(--margin);white-space:pre}
+pre.out{background:var(--out);border-left-color:var(--line);color:var(--muted);border-radius:0 0 8px 8px;margin:0;border-top:1px dashed var(--line)}
+pre.solo{border-radius:8px}
+pre.out.alone{border-radius:8px;margin-top:10px}
+.grade{display:inline-block;margin-top:14px;background:var(--hi);color:var(--hi-ink);font-weight:600;padding:2px 10px;border-radius:4px}
+.empty{color:var(--muted)}
+footer{margin-top:40px;color:var(--muted);font-size:15px;background:var(--paper);display:inline-block}
+.frame{width:100%;height:70vh;border:1.5px solid var(--line);border-radius:8px;background:#fff}
+.body a{color:var(--margin);font-weight:600}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1><span id="name">Jahwanza's</span> Biostatics Assignments</h1>
+  <p class="intro" id="intro"></p>
+  <div class="filters" id="filters" role="group" aria-label="Filter by topic"></div>
+  <div class="list" id="list"></div>
+  <footer id="footer"></footer>
+</main>
+
+<!-- ===== EDIT THIS PART =====
+  Each assignment is one block below. Paste your whole .Rmd file between the tags
+  (backticks are fine). To show results, paste the console output right after a code chunk
+  as a chunk named "output":   ```{output}   ...results...   ```
+  Change data-topic, data-date and data-grade. Copy a whole block to add another assignment.
+
+  KNITTED HTML: knit your file to HTML, put it in the same folder as this page, and add a block like
+  <script type="text/plain" class="rmd" data-title="HW 7: Regression" data-topic="Regression" data-date="Nov 2026" data-grade="A" data-file="hw7.html"></script>
+  Leave the block empty to show only the knitted report, or paste your .Rmd/.qmd inside it to also get a source tab.
+  For .qmd files add data-ext="qmd" so the tab says ".qmd source". -->
+
+<script type="text/plain" class="rmd" data-topic="Hypothesis testing" data-date="Sept 2026" data-grade="A">
+---
+title: "HW 3: Two-sample t-test on blood pressure"
+output: html_document
+---
+
+## Question
+
+Does systolic blood pressure differ between patients on the new drug and patients on placebo?
+
+## Load and summarize the data
+
+```{r}
+bp <- read.csv("bp_trial.csv")
+aggregate(sbp ~ group, data = bp, FUN = mean)
+```
+
+```{output}
+    group    sbp
+1    drug  121.4
+2 placebo  128.4
+```
+
+## Test
+
+I used Welch's t-test because I did not want to assume equal variances.
+
+```{r}
+t.test(sbp ~ group, data = bp)
+```
+
+```{output}
+	Welch Two Sample t-test
+
+data:  sbp by group
+t = -2.41, df = 17.6, p-value = 0.027
+95 percent confidence interval:
+ -13.1  -0.9
+sample estimates:
+   mean in group drug mean in group placebo
+                121.4                 128.4
+```
+
+## Conclusion
+
+The drug group averaged **7 mmHg lower** (95% CI 0.9 to 13.1, p = 0.027). At the 0.05 level this is evidence of a real difference.
+</script>
+<script type="text/plain" class="qmd" data-title="HW 7: Log-Rank Test of Survival Data" data-topic="Log-Rank" data-date="Nov 2026" data-grade="A" data-file="hw7.html"></script>
+<script type="text/plain" class="rmd" data-title="HW 8: Categorical Data Analysis Model Selection" data-topic="Stepwise Selection" data-date="Nov 2026" data-grade="A" data-file="Categorical Data Analysis Model Selection.html"></script>
+
+<script type="text/plain" class="rmd" data-topic="Categorical data" data-date="Oct 2026" data-grade="A-">
+---
+title: "HW 5: Smoking and disease (chi-square test)"
+output: html_document
+---
+
+## Question
+
+Is smoking status associated with disease in this sample of 200 people?
+
+## Build the table
+
+```{r}
+tab <- matrix(c(30, 70, 20, 80), nrow = 2, byrow = TRUE,
+              dimnames = list(smoker = c("yes", "no"), disease = c("yes", "no")))
+tab
+```
+
+```{output}
+      disease
+smoker yes no
+   yes  30 70
+   no   20 80
+```
+
+## Test
+
+```{r}
+chisq.test(tab)
+```
+
+```{output}
+	Pearson's Chi-squared test with Yates' continuity correction
+
+X-squared = 2.16, df = 1, p-value = 0.1416
+```
+
+## Conclusion
+
+- Disease rate in smokers: 30%. In non-smokers: 20%.
+- The p-value is above 0.05, so we **fail to reject** independence. With only 200 people, the study may be too small to detect a 10 point gap.
+</script>
+
+<script>
+/* Site settings */
+const SITE = { name: "Jahwanza", intro: "My biostatistics assignments written in R Markdown. Open one to read the finished report or see the source." };
+/* ===== END EDIT ===== */
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function inline(t){
+  return esc(t).replace(/`([^`]+)`/g,"<code>$1</code>")
+    .replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>")
+    .replace(/\*([^*]+)\*/g,"<em>$1</em>");
+}
+function prose(text){
+  const out=[]; let list=[];
+  const flush=()=>{ if(list.length){out.push("<ul>"+list.map(i=>"<li>"+inline(i)+"</li>").join("")+"</ul>");list=[];} };
+  let para=[]; const flushP=()=>{ if(para.length){out.push("<p>"+inline(para.join(" "))+"</p>");para=[];} };
+  for(const line of text.split("\n")){
+    let m;
+    if((m=line.match(/^(#{1,3})\s+(.*)/))){flush();flushP();out.push(`<h${m[1].length}>${inline(m[2])}</h${m[1].length}>`);}
+    else if((m=line.match(/^\s*[-*]\s+(.*)/))){flushP();list.push(m[1]);}
+    else if(!line.trim()){flush();flushP();}
+    else {flush();para.push(line.trim());}
+  }
+  flush();flushP();return out.join("");
+}
+function parse(src){
+  src=src.replace(/^\s*\n/,"").replace(/\s+$/,"");
+  let title="Untitled", body=src;
+  const y=src.match(/^---\n([\s\S]*?)\n---\n?/);
+  if(y){ const t=y[1].match(/title:\s*"?([^"\n]+)"?/); if(t) title=t[1].trim(); body=src.slice(y[0].length); }
+  return {title, body, src};
+}
+function renderDoc(body){
+  const re=/```\{(\w+)[^}]*\}\n([\s\S]*?)```/g; let html="", last=0, m, prevCode=false;
+  while((m=re.exec(body))){
+    html+=prose(body.slice(last,m.index)); last=re.lastIndex;
+    const code=m[2].replace(/\n$/,"");
+    if(m[1]==="output"){ html+=`<pre class="out ${prevCode?"":"alone"}">${esc(code)}</pre>`; prevCode=false; }
+    else { html+=`<pre>${esc(code)}</pre>`; prevCode=true; }
+    if(m[1]!=="output"){ /* close rounded corners if no output follows */ }
+  }
+  html+=prose(body.slice(last));
+  return html.replace(/<pre>((?:(?!<\/pre>)[\s\S])*)<\/pre>(?!<pre class="out)/g,'<pre class="solo">$1</pre>');
+}
+
+const ITEMS=[...document.querySelectorAll("script.rmd, script.qmd")].map((s,i)=>{
+  const has=s.textContent.trim().length>0, p=parse(s.textContent);
+  return {id:i,title:s.dataset.title||p.title,topic:s.dataset.topic||"Other",date:s.dataset.date||"",grade:s.dataset.grade||"",
+    file:s.dataset.file||"",ext:s.dataset.ext||(s.classList.contains("qmd")?"qmd":"Rmd"),has,html:renderDoc(p.body),src:p.src};
+});
+const topics=["All",...new Set(ITEMS.map(a=>a.topic))];
+let current="All";
+
+$("name").textContent=SITE.name+"'s"; $("intro").textContent=SITE.intro;
+/*$("footer").textContent="Made by "+SITE.name; document.title=SITE.name+"'s Biostatistics Homework";*/
+
+function views(a){
+  const v=[];
+  if(a.file) v.push(["Knitted report",`<iframe class="frame" src="${esc(a.file)}" title="${esc(a.title)}" loading="lazy"></iframe><p><a href="${esc(a.file)}" target="_blank" rel="noopener">Open full page</a></p>`]);
+  else if(a.has) v.push(["Report",`<div class="doc">${a.html}</div>`]);
+  if(a.has) v.push(["."+a.ext+" source",`<pre class="solo">${esc(a.src)}</pre>`]);
+  return `<div class="tabs">${v.map((x,i)=>`<button type="button" data-v="${i}" aria-pressed="${i===0}">${x[0]}</button>`).join("")}</div>`+
+    v.map((x,i)=>`<div class="view" data-i="${i}" ${i?"hidden":""}>${x[1]}</div>`).join("");
+}
+function render(){
+  const open=new Set([...document.querySelectorAll("details[open]")].map(d=>d.dataset.id));
+  $("filters").innerHTML=topics.map(t=>`<button type="button" data-t="${esc(t)}" aria-pressed="${t===current}">${esc(t)}</button>`).join("");
+  const shown=ITEMS.filter(a=>current==="All"||a.topic===current);
+  $("list").innerHTML=shown.length?shown.map(a=>`
+    <details data-id="${a.id}" ${open.has(String(a.id))?"open":""}>
+      <summary><h2>${esc(a.title)}</h2><span class="tag">${esc(a.topic)}${a.date?", "+esc(a.date):""}</span></summary>
+      <div class="body">
+        ${views(a)}
+        ${a.grade?`<span class="grade">Grade: ${esc(a.grade)}</span>`:""}
+      </div>
+    </details>`).join(""):`<p class="empty">No assignments here yet.</p>`;
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  if(b.dataset.t){current=b.dataset.t;render();return;}
+  if(b.dataset.v){
+    const box=b.closest(".body");
+    box.querySelectorAll(".view").forEach(x=>x.hidden=x.dataset.i!==b.dataset.v);
+    box.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+  }
+});
+render();
+</script>
+</body>
+</html>

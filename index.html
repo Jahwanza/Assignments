@@ -74,98 +74,12 @@ footer{margin-top:40px;color:var(--muted);font-size:15px;background:var(--paper)
   Leave the block empty to show only the knitted report, or paste your .Rmd/.qmd inside it to also get a source tab.
   For .qmd files add data-ext="qmd" so the tab says ".qmd source". -->
 
-<script type="text/plain" class="rmd" data-topic="Hypothesis testing" data-date="Sept 2026" data-grade="A">
----
-title: "Two-sample t-test on blood pressure"
-output: html_document
----
 
-## Question
-
-Does systolic blood pressure differ between patients on the new drug and patients on placebo?
-
-## Load and summarize the data
-
-```{r}
-bp <- read.csv("bp_trial.csv")
-aggregate(sbp ~ group, data = bp, FUN = mean)
-```
-
-```{output}
-    group    sbp
-1    drug  121.4
-2 placebo  128.4
-```
-
-## Test
-
-I used Welch's t-test because I did not want to assume equal variances.
-
-```{r}
-t.test(sbp ~ group, data = bp)
-```
-
-```{output}
-	Welch Two Sample t-test
-
-data:  sbp by group
-t = -2.41, df = 17.6, p-value = 0.027
-95 percent confidence interval:
- -13.1  -0.9
-sample estimates:
-   mean in group drug mean in group placebo
-                121.4                 128.4
-```
-
-## Conclusion
-
-The drug group averaged **7 mmHg lower** (95% CI 0.9 to 13.1, p = 0.027). At the 0.05 level this is evidence of a real difference.
-</script>
-<script type="text/plain" class="qmd" data-title=" Log-Rank Test of Survival Data" data-topic="Log-Rank" data-date="Nov 2026" data-grade="A" data-file="hw7.html"></script>
-<script type="text/plain" class="rmd" data-title="Categorical Data Analysis Model Selection" data-topic="Stepwise Selection" data-date="Nov 2026" data-grade="A" data-file="Categorical Data Analysis Model Selection.html"></script>
-
-<script type="text/plain" class="rmd" data-topic="Categorical data" data-date="Oct 2026" data-grade="A-">
----
-title: " Smoking and disease (chi-square test)"
-output: html_document
----
-
-## Question
-
-Is smoking status associated with disease in this sample of 200 people?
-
-## Build the table
-
-```{r}
-tab <- matrix(c(30, 70, 20, 80), nrow = 2, byrow = TRUE,
-              dimnames = list(smoker = c("yes", "no"), disease = c("yes", "no")))
-tab
-```
-
-```{output}
-      disease
-smoker yes no
-   yes  30 70
-   no   20 80
-```
-
-## Test
-
-```{r}
-chisq.test(tab)
-```
-
-```{output}
-	Pearson's Chi-squared test with Yates' continuity correction
-
-X-squared = 2.16, df = 1, p-value = 0.1416
-```
-
-## Conclusion
-
-- Disease rate in smokers: 30%. In non-smokers: 20%.
-- The p-value is above 0.05, so we **fail to reject** independence. With only 200 people, the study may be too small to detect a 10 point gap.
-</script>
+<script type="text/plain" class="qmd" data-title="Log-Rank Test of Survival Data" data-topic="Log-Rank" data-date="Nov 2026" data-grade="A" data-file="hw7.html"></script>
+<script type="text/plain" class="rmd" data-title="Multinomal Regression" data-topic="Categorical Data Analysis" data-date="Nov 2026" data-grade="" data-file="Multinomal Regression.html"></script>
+<script type="text/plain" class="rmd" data-title="Logistic Regression-Multinomal" data-topic="Categorical Data Analysis" data-date="Nov 2026" data-grade="" data-file="Logistic Regression Alternatives.html"></script>
+<script type="text/plain" class="rmd" data-title="Categorical Data Analysis-Model Selections" data-topic="Stepwise Selection" data-date="Nov 2026" data-grade="" data-file="Categorical Data Analysis Model Selection.html"></script>
+<script type="text/plain" class="rmd" data-title="Correlation Analysis" data-topic="Logistic" data-date="Nov 2026" data-grade="" data-file="Regression & Correlation Methods.html"></script>
 
 <script>
 /* Site settings */
